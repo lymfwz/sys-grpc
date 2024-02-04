@@ -1,0 +1,33 @@
+// @1 使用proto3语法
+syntax = "proto3";
+// @2 生成多个类（一个类方便管理）
+option java_multiple_files = false;
+// @3 生成java类所在包
+option java_package = "com.example.spbclient.proto";
+// @4 生成外层类类名
+option java_outer_classname = "MsgProto";
+
+// @6 .proto包名(逻辑包名)
+package msg;
+
+// @7 定义服务，用于描述要生成的API接口，类似于Java的业务逻辑接口类
+service MsgService {
+  // imgIdentify 方法名 ImgRequest 传入参数  ImgResponse 返回响应
+  //注意：这里是returns 不是return
+  rpc GetMsg (MsgRequest) returns (MsgResponse) {}
+}
+//定义请求数据结构
+// string 数据类型
+// calName 参数名称
+// 1 序号、索引值（表示第一个参数，防止传参顺序错乱），一旦开始就不能改变
+// int32 int
+// int64 long
+// 不可以使用 19000-19999 保留字
+// TODO 大小写问题
+message MsgRequest {
+  string name = 1;
+}
+
+message MsgResponse {
+  string msg = 1;
+}
